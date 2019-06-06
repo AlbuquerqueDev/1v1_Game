@@ -109,7 +109,7 @@ function drawPaddle(paddle) {
 	ctx.closePath();
 }
 function drawNet() {
-	for (var i = 0; i <canvas.width; i+=15) {
+	for (var i = 0; i < canvas.width; i+=15) {
 		drawRect(net.x + i, net.y, net.width, net.height, net.color);
 	}
 }
@@ -147,6 +147,12 @@ function draw() {
 	if (ball.y + ball.dy  > canvas.height - paddle_1.ph - ball.raio &&
 	   	ball.x + ball.dx > paddle_1.px &&
 	   	ball.x + ball.dx < paddle_1.px + paddle_1.pw) {
+		ball.dy = -ball.dy;
+	}
+
+	if (ball.y + ball.dy < paddle_2.ph + ball.raio &&
+	   	ball.x + ball.dx > paddle_2.px &&
+	   	ball.x + ball.dx < paddle_2.px + paddle_2.pw) {
 		ball.dy = -ball.dy;
 	}
 
