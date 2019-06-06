@@ -1,6 +1,17 @@
 var canvas = document.getElementById("area");
 var ctx = canvas.getContext('2d');
 
+
+var hit = new Audio();
+var userScore = new Audio();
+var wall = new Audio();
+
+hit.src = "sounds/hit.mp3";
+userScore.src = "sounds/userScore.mp3";
+wall.src = "sounds/wall.mp3";
+
+var score = 0;
+
 var right;
 var left;
 var a;
@@ -77,18 +88,18 @@ function drawRect(x, y, w, h, color) {
 	ctx.fillRect(x, y, w, h);
 }
 
-function createPaddle(px, py, pw, ph, pdx, color) {
+function createPaddle(px, py, pw, ph, pdx, ps, color) {
 	this.pw = pw;
 	this.ph = ph;
 	this.px = px;
 	this.py = py;
-	this.ps = 0;
+	this.ps = ps;
 	this.pdx = 5;
 
 }
 
-var paddle_1 = new createPaddle((canvas.width-100)/2, canvas.height - 20, 100, 15, 5, "white");
-var paddle_2 = new createPaddle((canvas.width-100)/2, 5, 100, 15, 5, "white");
+var paddle_1 = new createPaddle((canvas.width-100)/2, canvas.height - 20, 100, 15, 5, 0, "white");
+var paddle_2 = new createPaddle((canvas.width-100)/2, 5, 100, 15, 5, 0, "white");
 
 function drawPaddle(paddle) {
 	ctx.beginPath();
@@ -103,6 +114,12 @@ function drawNet() {
 	}
 }
 
+function drawText(text, x, y) {
+	ctx.fillStyle = "white";
+	ctx.font = "50px Fantasy";
+	ctx.fillText(text, x, y);
+}
+
 function draw() {
 	drawRect(0, 0, canvas.width, canvas.height, "#000");
 
@@ -110,6 +127,21 @@ function draw() {
 
 	if (ball.x + ball.dx > canvas.width - ball.raio || ball.x + ball.dx < ball.raio) {
 		ball.dx = -ball.dx;
+		wall.play();
+	}
+
+	if (ball.y + ball.dy > canvas.height) {
+		ball.y = canvas.height/2;
+		ball.x = canvas.width/2;
+		userScore.play();
+		paddle_2.ps++;
+
+	} else if (ball.y + ball.dy < -15) {
+		ball.y = canvas.height/2;
+		ball.x = canvas.width/2;
+		userScore.play();
+		paddle_1.ps++;
+
 	}
 
 	if (ball.y + ball.dy  > canvas.height - paddle_1.ph - ball.raio &&
@@ -141,6 +173,9 @@ function draw() {
 	}
 
 	drawNet();
+
+	drawText(paddle_1.ps, canvas.width/2, canvas.height/2 + 50);
+	drawText(paddle_2.ps, canvas.width/2, canvas.height/2 - 10);
 
 	requestAnimationFrame(draw);
 
