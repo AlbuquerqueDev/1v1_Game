@@ -10,6 +10,9 @@ hit.src = "sounds/hit.mp3";
 userScore.src = "sounds/userScore.mp3";
 wall.src = "sounds/wall.mp3";
 
+var jp = new Image();
+jp.src = "images/jp.jpg"
+
 var score = 0;
 
 var right;
@@ -64,7 +67,7 @@ var ball = {
 	dx : 3.5,
 	dy : -3.5,
 	speed : 3,
-	color : "white"
+	color : "black"
 }
 
 var net = {
@@ -72,19 +75,18 @@ var net = {
 	y : (canvas.height - 2)/2,
 	width : 10,
 	height : 2,
-	color : "white"
+	color : "black"
 }
 
 function drawBall() {
 	ctx.beginPath();
 	ctx.arc(ball.x, ball.y, ball.raio, 0, Math.PI*2);
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "black";
 	ctx.fill();
 	ctx.closePath();	
 }
 
-function drawRect(x, y, w, h, color) {
-	ctx.fillStyle = color;
+function drawRect(x, y, w, h) {
 	ctx.fillRect(x, y, w, h);
 }
 
@@ -98,8 +100,8 @@ function createPaddle(px, py, pw, ph, pdx, ps, color) {
 
 }
 
-var paddle_1 = new createPaddle((canvas.width-100)/2, canvas.height - 20, 100, 15, 5, 0, "white");
-var paddle_2 = new createPaddle((canvas.width-100)/2, 5, 100, 15, 5, 0, "white");
+var paddle_1 = new createPaddle((canvas.width-100)/2, canvas.height - 20, 100, 15, 5, 0, "red");
+var paddle_2 = new createPaddle((canvas.width-100)/2, 5, 100, 15, 5, 0, "blue");
 
 function drawPaddle(paddle) {
 	ctx.beginPath();
@@ -115,13 +117,13 @@ function drawNet() {
 }
 
 function drawText(text, x, y) {
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "black";
 	ctx.font = "50px Fantasy";
 	ctx.fillText(text, x, y);
 }
 
 function draw() {
-	drawRect(0, 0, canvas.width, canvas.height, "#000");
+	ctx.drawImage(jp,0,0,400,600);
 
 	drawBall();
 
