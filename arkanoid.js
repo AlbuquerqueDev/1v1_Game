@@ -63,7 +63,7 @@ var ball = {
 	raio : 15,
 	dx : 3.5,
 	dy : -3.5,
-	speed : 5,
+	speed : 3,
 	color : "white"
 }
 
@@ -135,25 +135,29 @@ function draw() {
 		ball.x = canvas.width/2;
 		userScore.play();
 		paddle_2.ps++;
+		ball.dy = 3.5;
 
 	} else if (ball.y + ball.dy < -15) {
 		ball.y = canvas.height/2;
 		ball.x = canvas.width/2;
 		userScore.play();
 		paddle_1.ps++;
+		ball.dy = -3.5;
 
 	}
 
 	if (ball.y + ball.dy  > canvas.height - paddle_1.ph - ball.raio &&
 	   	ball.x + ball.dx > paddle_1.px &&
 	   	ball.x + ball.dx < paddle_1.px + paddle_1.pw) {
-		ball.dy = -ball.dy;
+		ball.dy = -(ball.dy + 0.5);
+		
 	}
 
 	if (ball.y + ball.dy < paddle_2.ph + ball.raio &&
 	   	ball.x + ball.dx > paddle_2.px &&
 	   	ball.x + ball.dx < paddle_2.px + paddle_2.pw) {
-		ball.dy = -ball.dy;
+		ball.dy = -(ball.dy - 0.5);
+		
 	}
 
 	ball.x += ball.dx;
