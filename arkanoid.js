@@ -10,8 +10,8 @@ hit.src = "sounds/hit.mp3";
 userScore.src = "sounds/userScore.mp3";
 wall.src = "sounds/wall.mp3";
 
-var jp = new Image();
-jp.src = "images/jp.jpg"
+var bg = new Image();
+bg.src = "images/bg.jpg"
 
 var score = 0;
 
@@ -118,12 +118,12 @@ function drawNet() {
 
 function drawText(text, x, y) {
 	ctx.fillStyle = "black";
-	ctx.font = "50px Fantasy";
+	ctx.font = "25px pixeled";
 	ctx.fillText(text, x, y);
 }
 
 function draw() {
-	ctx.drawImage(jp,0,0,400,600);
+	ctx.drawImage(bg,0,0,400,600);
 
 	drawBall();
 
